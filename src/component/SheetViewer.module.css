@@ -1,0 +1,6 @@
+.dataTable td,
+.dataTable th {
+  border: 1px solid #ddd;
+  font-size: 8px;
+  padding: 3px;
+}
