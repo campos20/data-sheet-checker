@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { Col, Row } from "antd";
+import { SortItems } from "./SortItems";
 
 interface HeadersSort {
   headers1: string[];
@@ -7,39 +7,16 @@ interface HeadersSort {
 }
 
 export const HeadersSort = ({ headers1, headers2 }: HeadersSort) => {
-  const [stateItems, setItems] = useState(headers1);
-  const onDragEnd = (result: any) => {
-    console.log(result);
-  };
-
-  useEffect(() => setItems(headers1), [headers1]);
   return (
     <div>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
-          {(provided, snapshot) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {stateItems.map((header, idx) => {
-                return (
-                  <Draggable key={header} draggableId={header} index={idx}>
-                    {(provided, snapshot) => {
-                      return (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          {header}
-                        </div>
-                      );
-                    }}
-                  </Draggable>
-                );
-              })}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <Row gutter={16}>
+        <Col span={12}>
+          <SortItems headers={headers1} />
+        </Col>
+        <Col span={12}>
+          <SortItems headers={headers2} />
+        </Col>
+      </Row>
     </div>
   );
 };
