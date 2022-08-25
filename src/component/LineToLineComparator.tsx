@@ -16,8 +16,7 @@ export const LineToLineComparator = ({
   if (mainColumn1 == null || mainColumn2 == null) {
     return null;
   }
-  console.log(mainColumn1);
-  console.log(mainColumn2);
+
   return (
     <div>
       {content1.map((line, i) => {

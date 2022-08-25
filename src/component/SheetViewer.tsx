@@ -8,6 +8,8 @@ interface SheetViewerProps {
   setContent: (content: string[][]) => void;
   mainColumn?: number;
   setMainColumn: (mainColumn: number) => void;
+  headers: string[];
+  setHeaders: (h: string[]) => void;
 }
 
 export const SheetViewer = ({
@@ -15,9 +17,10 @@ export const SheetViewer = ({
   setContent,
   mainColumn,
   setMainColumn,
+  headers,
+  setHeaders,
 }: SheetViewerProps) => {
   const [rawData, setRawData] = useState("");
-  const [header, setHeader] = useState<string[]>([]);
 
   useEffect(() => {
     const newData = rawData
@@ -27,7 +30,7 @@ export const SheetViewer = ({
     const newHeader = newData[0];
     setContent(newData.length > 1 ? newData.slice(1) : []);
     if (newHeader) {
-      setHeader(newHeader);
+      setHeaders(newHeader);
     }
   }, [rawData]);
 
@@ -42,11 +45,11 @@ export const SheetViewer = ({
           />
         </Col>
         <Col span={12}>
-          {header.length > 0 && (
+          {headers.length > 0 && (
             <div>
               Main column:{" "}
               <Select
-                options={header.map((label, j) => ({ label, value: j }))}
+                options={headers.map((label, j) => ({ label, value: j }))}
                 onChange={(j) => setMainColumn(j)}
                 className={classes.halfSpace}
                 value={mainColumn}
@@ -58,7 +61,7 @@ export const SheetViewer = ({
               <table className={classes.dataTable}>
                 <thead>
                   <tr>
-                    {header.map((h, i) => (
+                    {headers.map((h, i) => (
                       <th key={h + "-" + i}>{h}</th>
                     ))}
                   </tr>

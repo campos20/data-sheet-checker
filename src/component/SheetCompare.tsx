@@ -1,4 +1,4 @@
-import { Collapse } from "antd";
+import { Collapse, Divider } from "antd";
 import { useState } from "react";
 import { LineToLineComparator } from "./LineToLineComparator";
 import { SheetViewer } from "./SheetViewer";
@@ -12,9 +12,8 @@ export const SheetCompare = ({}: SheetCompareProps) => {
   const [content2, setContent2] = useState<string[][]>([]);
   const [mainColumn1, setMainColumn1] = useState<number>();
   const [mainColumn2, setMainColumn2] = useState<number>();
-
-  console.log(mainColumn1);
-  console.log(mainColumn2);
+  const [headers1, setHeaders1] = useState<string[]>([]);
+  const [headers2, setHeaders2] = useState<string[]>([]);
 
   return (
     <div>
@@ -24,6 +23,8 @@ export const SheetCompare = ({}: SheetCompareProps) => {
             content={content1}
             setContent={setContent1}
             setMainColumn={setMainColumn1}
+            headers={headers1}
+            setHeaders={setHeaders1}
           />
         </Panel>
         <Panel key="data2" header="Data 2">
@@ -31,9 +32,12 @@ export const SheetCompare = ({}: SheetCompareProps) => {
             content={content2}
             setContent={setContent2}
             setMainColumn={setMainColumn2}
+            headers={headers2}
+            setHeaders={setHeaders2}
           />
         </Panel>
       </Collapse>
+      <Divider />
       <LineToLineComparator
         content1={content1}
         content2={content2}
