@@ -8,3 +8,8 @@
 .halfSpace {
   width: 50%;
 }
+
+.compareItem {
+  overflow-x: auto;
+  margin: 5px;
+}

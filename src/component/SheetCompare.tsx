@@ -13,14 +13,25 @@ export const SheetCompare = ({}: SheetCompareProps) => {
   const [mainColumn1, setMainColumn1] = useState<number>();
   const [mainColumn2, setMainColumn2] = useState<number>();
 
+  console.log(mainColumn1);
+  console.log(mainColumn2);
+
   return (
     <div>
       <Collapse defaultActiveKey={["data1", "data2"]}>
         <Panel key="data1" header="Data 1">
-          <SheetViewer content={content1} setContent={setContent1} />
+          <SheetViewer
+            content={content1}
+            setContent={setContent1}
+            setMainColumn={setMainColumn1}
+          />
         </Panel>
         <Panel key="data2" header="Data 2">
-          <SheetViewer content={content2} setContent={setContent2} />
+          <SheetViewer
+            content={content2}
+            setContent={setContent2}
+            setMainColumn={setMainColumn2}
+          />
         </Panel>
       </Collapse>
       <LineToLineComparator

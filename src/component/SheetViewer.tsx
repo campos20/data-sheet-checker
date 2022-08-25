@@ -1,17 +1,23 @@
 import { Col, Row, Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { useEffect, useState } from "react";
-import classes from "./SheetViewer.module.css";
+import classes from "../index.module.css";
 
 interface SheetViewerProps {
   content: string[][];
   setContent: (content: string[][]) => void;
+  mainColumn?: number;
+  setMainColumn: (mainColumn: number) => void;
 }
 
-export const SheetViewer = ({ content, setContent }: SheetViewerProps) => {
+export const SheetViewer = ({
+  content,
+  setContent,
+  mainColumn,
+  setMainColumn,
+}: SheetViewerProps) => {
   const [rawData, setRawData] = useState("");
   const [header, setHeader] = useState<string[]>([]);
-  const [mainColumn, setMainColumn] = useState("");
 
   useEffect(() => {
     const newData = rawData
@@ -22,12 +28,6 @@ export const SheetViewer = ({ content, setContent }: SheetViewerProps) => {
     setContent(newData.length > 1 ? newData.slice(1) : []);
     if (newHeader) {
       setHeader(newHeader);
-      if (
-        newHeader.length > 0 &&
-        (mainColumn === "" || !newHeader.includes(mainColumn))
-      ) {
-        setMainColumn(newHeader[0]);
-      }
     }
   }, [rawData]);
 
@@ -47,8 +47,9 @@ export const SheetViewer = ({ content, setContent }: SheetViewerProps) => {
               Main column:{" "}
               <Select
                 options={header.map((label, j) => ({ label, value: j }))}
-                onChange={(j) => setMainColumn(header[j])}
+                onChange={(j) => setMainColumn(j)}
                 className={classes.halfSpace}
+                value={mainColumn}
               />
             </div>
           )}
