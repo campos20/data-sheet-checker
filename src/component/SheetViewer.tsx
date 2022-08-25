@@ -3,9 +3,13 @@ import TextArea from "antd/lib/input/TextArea";
 import { useEffect, useState } from "react";
 import classes from "./SheetViewer.module.css";
 
-export const SheetViewer = () => {
+interface SheetViewerProps {
+  content: string[][];
+  setContent: (content: string[][]) => void;
+}
+
+export const SheetViewer = ({ content, setContent }: SheetViewerProps) => {
   const [rawData, setRawData] = useState("");
-  const [content, setContent] = useState<string[][]>([]);
   const [header, setHeader] = useState<string[]>([]);
   const [mainColumn, setMainColumn] = useState("");
 
@@ -31,6 +35,7 @@ export const SheetViewer = () => {
     <div>
       <Row gutter={16}>
         <Col span={12}>
+          <label>Paste sheet data here</label>
           <TextArea
             value={rawData}
             onChange={(e) => setRawData(e.target.value)}
@@ -43,6 +48,7 @@ export const SheetViewer = () => {
               <Select
                 options={header.map((label, j) => ({ label, value: j }))}
                 onChange={(j) => setMainColumn(header[j])}
+                className={classes.halfSpace}
               />
             </div>
           )}

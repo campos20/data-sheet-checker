@@ -3,17 +3,27 @@ import { SheetViewer } from "./SheetViewer";
 
 const { Panel } = Collapse;
 
-export const SheetCompare = () => {
+interface SheetCompareProps {
+  content1: string[][];
+  content2: string[][];
+  setContent1: (content: string[][]) => void;
+  setContent2: (content: string[][]) => void;
+}
+
+export const SheetCompare = ({
+  content1,
+  content2,
+  setContent1,
+  setContent2,
+}: SheetCompareProps) => {
   return (
     <div>
       <Collapse defaultActiveKey={["data1", "data2"]}>
         <Panel key="data1" header="Data 1">
-          <label>Paste first data here</label>
-          <SheetViewer />
+          <SheetViewer content={content1} setContent={setContent1} />
         </Panel>
         <Panel key="data2" header="Data 2">
-          <label>Paste second here</label>
-          <SheetViewer />
+          <SheetViewer content={content2} setContent={setContent2} />
         </Panel>
       </Collapse>
     </div>
