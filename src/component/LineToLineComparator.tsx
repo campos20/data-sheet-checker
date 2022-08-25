@@ -27,32 +27,45 @@ export const LineToLineComparator = ({
         const compareLine = content2.find(
           (l) => l[mainColumn2] === line[mainColumn1]
         );
+        const toDisplay1 = sortedHeadersIndex1.map((idx) => line[idx]);
+        const toDisplay2 = sortedHeadersIndex2.map((idx) =>
+          compareLine && compareLine.length > 0 ? compareLine[idx] : "-"
+        );
+        const highlight = toDisplay1.map(
+          (cell, idx) => toDisplay2.length <= idx || cell !== toDisplay2[idx]
+        );
         return (
           <div key={line + "-" + i} className={classes.compareItem}>
-            <table className={classes.dataTable}>
-              <tbody>
-                <tr>
-                  {sortedHeadersIndex1.map((idx1, j) => (
-                    <td key={line[idx1] + "-" + j}>{line[idx1]}</td>
-                  ))}
-                </tr>
-                {compareLine ? (
+            {
+              <table className={classes.dataTable}>
+                <tbody>
                   <tr>
-                    {sortedHeadersIndex2.map((idx2, j) => (
-                      <td key={compareLine[idx2] + "-" + j}>
-                        {compareLine[idx2]}
+                    {toDisplay1.map((cell, j) => (
+                      <td
+                        key={cell + "-" + j}
+                        className={
+                          highlight[j] ? classes.incorrect : classes.correct
+                        }
+                      >
+                        {cell}
                       </td>
                     ))}
                   </tr>
-                ) : (
                   <tr>
-                    {line.map((cell, j) => (
-                      <td key={cell + "-" + j} />
+                    {toDisplay2.map((cell, j) => (
+                      <td
+                        key={cell + "-" + j}
+                        className={
+                          highlight[j] ? classes.incorrect : classes.correct
+                        }
+                      >
+                        {cell}
+                      </td>
                     ))}
                   </tr>
-                )}
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            }
           </div>
         );
       })}

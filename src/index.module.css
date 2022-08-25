@@ -13,3 +13,11 @@
   overflow-x: auto;
   margin: 5px;
 }
+
+.correct {
+  background-color: lightblue;
+}
+
+.incorrect {
+  background-color: red;
+}
