@@ -1,5 +1,6 @@
 import { Collapse, Divider } from "antd";
 import { useState } from "react";
+import { HeadersSort } from "./HeadersSort";
 import { LineToLineComparator } from "./LineToLineComparator";
 import { SheetViewer } from "./SheetViewer";
 
@@ -17,7 +18,7 @@ export const SheetCompare = ({}: SheetCompareProps) => {
 
   return (
     <div>
-      <Collapse defaultActiveKey={["data1", "data2"]}>
+      <Collapse defaultActiveKey={["data1", "data2", "data3"]}>
         <Panel key="data1" header="Data 1">
           <SheetViewer
             content={content1}
@@ -35,6 +36,9 @@ export const SheetCompare = ({}: SheetCompareProps) => {
             headers={headers2}
             setHeaders={setHeaders2}
           />
+        </Panel>
+        <Panel key="data3" header="Sort headers">
+          <HeadersSort headers1={headers1} headers2={headers2} />
         </Panel>
       </Collapse>
       <Divider />
