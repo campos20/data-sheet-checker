@@ -26,6 +26,7 @@ export const SortItems = ({ headers, setSortedHeaders }: SortItemsProps) => {
       result.destination.index
     );
     setStateItems(items);
+    setSortedHeaders(items);
   };
   useEffect(() => setStateItems(headers), [headers]);
 

@@ -32,14 +32,16 @@ export const LineToLineComparator = ({
             <table className={classes.dataTable}>
               <tbody>
                 <tr>
-                  {line.map((cell, j) => (
-                    <td key={cell + "-" + j}>{cell}</td>
+                  {sortedHeadersIndex1.map((idx1, j) => (
+                    <td key={line[idx1] + "-" + j}>{line[idx1]}</td>
                   ))}
                 </tr>
                 {compareLine ? (
                   <tr>
-                    {compareLine.map((cell, j) => (
-                      <td key={cell + "-" + j}>{cell}</td>
+                    {sortedHeadersIndex2.map((idx2, j) => (
+                      <td key={compareLine[idx2] + "-" + j}>
+                        {compareLine[idx2]}
+                      </td>
                     ))}
                   </tr>
                 ) : (
