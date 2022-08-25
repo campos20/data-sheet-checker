@@ -3,6 +3,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 interface SortItemsProps {
   headers: string[];
+  setSortedHeaders: (newHeaders: string[]) => void;
 }
 
 const reorder = (list: string[], startIndex: number, endIndex: number) => {
@@ -13,7 +14,7 @@ const reorder = (list: string[], startIndex: number, endIndex: number) => {
   return result;
 };
 
-export const SortItems = ({ headers }: SortItemsProps) => {
+export const SortItems = ({ headers, setSortedHeaders }: SortItemsProps) => {
   const [stateItems, setStateItems] = useState(headers);
   const onDragEnd = (result: any) => {
     if (!result.destination) {

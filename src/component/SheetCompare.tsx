@@ -1,5 +1,5 @@
 import { Collapse, Divider } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HeadersSort } from "./HeadersSort";
 import { LineToLineComparator } from "./LineToLineComparator";
 import { SheetViewer } from "./SheetViewer";
@@ -15,6 +15,24 @@ export const SheetCompare = ({}: SheetCompareProps) => {
   const [mainColumn2, setMainColumn2] = useState<number>();
   const [headers1, setHeaders1] = useState<string[]>([]);
   const [headers2, setHeaders2] = useState<string[]>([]);
+  const [sortedHeaders1, setSortedHeaders1] = useState<string[]>([]);
+  const [sortedHeaders2, setSortedHeaders2] = useState<string[]>([]);
+  const [sortedHeadersIndex1, setSortedHeadersIndex1] = useState<number[]>([]);
+  const [sortedHeadersIndex2, setSortedHeadersIndex2] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (!sortedHeaders1) {
+      return;
+    }
+    setSortedHeadersIndex1(sortedHeaders1.map((h) => headers1.indexOf(h)));
+  }, [headers1, sortedHeaders1]);
+
+  useEffect(() => {
+    if (!sortedHeaders2) {
+      return;
+    }
+    setSortedHeadersIndex2(sortedHeaders2.map((h) => headers2.indexOf(h)));
+  }, [headers2, sortedHeaders2]);
 
   return (
     <div>
@@ -38,7 +56,12 @@ export const SheetCompare = ({}: SheetCompareProps) => {
           />
         </Panel>
         <Panel key="data3" header="Sort headers">
-          <HeadersSort headers1={headers1} headers2={headers2} />
+          <HeadersSort
+            headers1={headers1}
+            headers2={headers2}
+            setSortedHeaders1={setSortedHeaders1}
+            setSortedHeaders2={setSortedHeaders2}
+          />
         </Panel>
       </Collapse>
       <Divider />
@@ -47,6 +70,8 @@ export const SheetCompare = ({}: SheetCompareProps) => {
         content2={content2}
         mainColumn1={mainColumn1}
         mainColumn2={mainColumn2}
+        sortedHeadersIndex1={sortedHeadersIndex1}
+        sortedHeadersIndex2={sortedHeadersIndex2}
       />
     </div>
   );

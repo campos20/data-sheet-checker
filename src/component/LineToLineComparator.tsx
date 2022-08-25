@@ -5,6 +5,8 @@ interface LineToLineComparatorProps {
   content2: string[][];
   mainColumn1?: number;
   mainColumn2?: number;
+  sortedHeadersIndex1: number[];
+  sortedHeadersIndex2: number[];
 }
 
 export const LineToLineComparator = ({
@@ -12,6 +14,8 @@ export const LineToLineComparator = ({
   content2,
   mainColumn1,
   mainColumn2,
+  sortedHeadersIndex1,
+  sortedHeadersIndex2,
 }: LineToLineComparatorProps) => {
   if (mainColumn1 == null || mainColumn2 == null) {
     return null;
